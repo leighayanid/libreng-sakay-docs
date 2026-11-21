@@ -17,6 +17,7 @@ export default defineNuxtConfig({
     clientBundle: {
       icons: [
         'lucide:book-open',
+        'lucide:list-checks',
         'lucide:arrow-right',
         'lucide:route',
         'lucide:layout-dashboard',
