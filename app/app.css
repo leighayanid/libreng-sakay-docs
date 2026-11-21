@@ -1,0 +1,128 @@
+/* Extra styles for the landing page. Docus imports this file after Tailwind and Nuxt UI. */
+
+/* Docus only scans content/ and its own layer for Tailwind classes, so add our components. */
+@source "./components";
+
+:root {
+  --ls-blue: #2563eb;
+  --ls-blue-soft: #60a5fa;
+  --ls-sky: #0ea5e9;
+  --ls-green: #059669;
+  --ls-green-soft: #10b981;
+  --ls-amber: #d97706;
+  --ls-rose: #e11d48;
+  --ls-line: color-mix(in oklab, var(--ui-text-highlighted) 9%, transparent);
+  --ls-line-strong: color-mix(in oklab, var(--ui-text-highlighted) 16%, transparent);
+  --ls-glass: color-mix(in oklab, var(--ui-bg) 72%, transparent);
+  --ls-glass-border: color-mix(in oklab, var(--ui-text-highlighted) 10%, transparent);
+  --ls-card: color-mix(in oklab, var(--ui-bg-elevated) 55%, var(--ui-bg));
+  --ls-shadow: 0 1px 0 0 rgb(255 255 255 / 0.6) inset, 0 20px 50px -20px rgb(15 23 42 / 0.25), 0 2px 6px -2px rgb(15 23 42 / 0.08);
+  --ls-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.dark {
+  --ls-blue: #3b82f6;
+  --ls-blue-soft: #93c5fd;
+  --ls-sky: #38bdf8;
+  --ls-green: #10b981;
+  --ls-green-soft: #34d399;
+  --ls-amber: #fbbf24;
+  --ls-rose: #fb7185;
+  --ls-glass: color-mix(in oklab, var(--ui-bg) 60%, transparent);
+  --ls-card: color-mix(in oklab, var(--ui-bg-elevated) 40%, var(--ui-bg));
+  --ls-shadow: 0 1px 0 0 rgb(255 255 255 / 0.06) inset, 0 30px 60px -25px rgb(0 0 0 / 0.7), 0 2px 6px -2px rgb(0 0 0 / 0.4);
+}
+
+/* Softer hero glow in light mode (kept here: scoped styles can't target the html class). */
+html:not(.dark) .ls-hero__aurora { opacity: 0.22; }
+html:not(.dark) .ls-hero__aurora--b,
+html:not(.dark) .ls-hero__aurora--c { opacity: 0.16; }
+
+/* Scroll reveal. Items are only hidden once JavaScript has armed the observer (see useReveal). */
+[data-reveal] {
+  transition:
+    opacity 0.9s var(--ls-ease),
+    transform 0.9s var(--ls-ease),
+    filter 0.9s var(--ls-ease);
+  transition-delay: var(--d, 0ms);
+}
+
+.ls-reveal-armed [data-reveal]:not(.is-in) {
+  opacity: 0;
+  transform: translateY(28px) scale(0.98);
+  filter: blur(8px);
+}
+
+/* Shared bits */
+.ls-gradient-text {
+  background: linear-gradient(100deg, var(--ls-blue) 0%, var(--ls-sky) 35%, var(--ls-green-soft) 65%, var(--ls-blue) 100%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: ls-shimmer 9s linear infinite;
+}
+
+.ls-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ui-primary);
+}
+
+.ls-eyebrow::before {
+  content: "";
+  width: 1.5rem;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, currentColor);
+}
+
+.ls-grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+.dark .ls-grain::after {
+  opacity: 0.09;
+}
+
+@keyframes ls-shimmer {
+  to { background-position: -220% 0; }
+}
+
+@keyframes ls-dash {
+  to { stroke-dashoffset: -1000; }
+}
+
+@keyframes ls-ping {
+  0% { transform: scale(0.6); opacity: 0.9; }
+  80%, 100% { transform: scale(2.6); opacity: 0; }
+}
+
+@keyframes ls-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes ls-blink {
+  50% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ls-landing *,
+  .ls-landing *::before,
+  .ls-landing *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
