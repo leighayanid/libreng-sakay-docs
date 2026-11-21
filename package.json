@@ -1,0 +1,16 @@
+{
+  "name": "libreng-sakay-docs",
+  "description": "Developer handover docs for Libreng Sakay: the admin web app, the driver app and the bus kiosk.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "nuxt dev",
+    "build": "nuxt build",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview"
+  },
+  "dependencies": {
+    "docus": "^5.15.0",
+    "nuxt": "^4.6.0"
+  }
+}
