@@ -126,3 +126,43 @@ html:not(.dark) .ls-hero__aurora--c { opacity: 0.16; }
     transition-duration: 0.001ms !important;
   }
 }
+
+/* Mermaid diagrams (app/components/content/Mermaid.vue).
+   Colour nodes in a diagram with `class <ids> admin|driver|kiosk|server|pass|ok|danger`.
+   Mermaid scopes its own styles under the diagram's id, so these need !important. */
+.ls-mermaid .node {
+  --ls-node: var(--ls-blue);
+}
+.ls-mermaid .node.admin { --ls-node: var(--ls-blue); }
+.ls-mermaid .node.driver { --ls-node: var(--ls-sky); }
+.ls-mermaid .node.kiosk { --ls-node: var(--ls-green); }
+.ls-mermaid .node.server { --ls-node: var(--ls-amber); }
+.ls-mermaid .node.pass { --ls-node: #8b5cf6; }
+.ls-mermaid .node.ok { --ls-node: var(--ls-green-soft); }
+.ls-mermaid .node.danger { --ls-node: var(--ls-rose); }
+
+.ls-mermaid .node:is(.admin, .driver, .kiosk, .server, .pass, .ok, .danger) :is(rect, polygon, path, circle, ellipse) {
+  fill: color-mix(in oklab, var(--ls-node) 12%, var(--ui-bg)) !important;
+  stroke: var(--ls-node) !important;
+  stroke-width: 1.5px !important;
+}
+
+.ls-mermaid .node:is(.danger, .ok) .nodeLabel {
+  font-weight: 600;
+}
+
+.ls-mermaid .cluster rect {
+  rx: 12px;
+  ry: 12px;
+  stroke-dasharray: 4 4;
+}
+
+.ls-mermaid .cluster-label,
+.ls-mermaid .cluster .nodeLabel {
+  color: var(--ui-text-muted) !important;
+}
+
+.ls-mermaid .edgeLabel,
+.ls-mermaid .edgeLabel p {
+  color: var(--ui-text-muted) !important;
+}

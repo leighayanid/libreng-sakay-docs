@@ -27,7 +27,8 @@ content/
   5.api/                    App API
 public/images/              Screenshots (from the librengsakay-guide repo)
 app/app.config.ts           Site title, colors, GitHub link
-app/components/content/     Custom Markdown components (PhoneShots, Landing*)
+app/components/content/     Custom Markdown components (PhoneShots, Mermaid, Landing*)
+app/components/OgImage/     Social preview image templates
 app/app.css                 Landing page colors and shared animations
 ```
 
@@ -38,6 +39,25 @@ To show phone screenshots side by side with captions:
 ```md
 :phone-shots{:shots='[{"src":"/images/kiosk/06-tap-ok.webp","caption":"Welcome aboard"}]'}
 ```
+
+## Diagrams
+
+Fenced code blocks with the `mermaid` language are drawn as diagrams with [Mermaid](https://mermaid.js.org) (`app/components/content/Mermaid.vue`). Text after the language becomes the caption. Colour nodes by the part of the system they belong to with `class <ids> admin|driver|kiosk|server|pass|ok|danger`; the colours follow light and dark mode.
+
+````md
+```mermaid Caption shown under the diagram
+flowchart LR
+  A["Admin web app"] --> B[("App API")] --> C["Driver app"]
+  class A admin
+  class C driver
+```
+````
+
+Examples: How it works, Running a trip and Tapping in.
+
+## Social preview images
+
+The Open Graph images shown when a link is shared are rendered at build time from `app/components/OgImage/Landing.takumi.vue` (home page) and `Docs.takumi.vue` (every other page, coloured by sidebar section). They replace the Docus defaults. Set `NUXT_SITE_URL` when building so the image URLs are absolute.
 
 ## Landing page
 
